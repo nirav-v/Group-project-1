@@ -22,13 +22,11 @@ function zipWeatherUpdate(cityName) {
 
     .then(function(data) {
         console.log(data)
-        //test code
-        var lat = data[0].lat;
+       var lat = data[0].lat;
         var lon = data[0].lon;
         console.log(lat)
         console.log(lon)
         initMap(lat, lon)
-        // //
 
         var cityInfo = data[0];
         var weatherUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' +
@@ -95,9 +93,6 @@ searchBtn.addEventListener("click", function(event) {
     zipCodeEl.value = '';
 });
 
-// for google nearby search api
-// var googleMapApiKey = "AIzaSyCpf0JxzmcUOXYeZzlqm-31JxSX2YAOXQY";
-
 var map;
 var service;
 var infowindow;
@@ -105,7 +100,7 @@ var googleMapApiKey = "AIzaSyCpf0JxzmcUOXYeZzlqm-31JxSX2YAOXQY";
 
 function initMap(lat, lon) {
 
-  var city = new google.maps.LatLng(lat, lon); // used san diego coordinates right now
+  var city = new google.maps.LatLng(lat, lon); 
 
   infowindow = new google.maps.InfoWindow();
   map = new google.maps.Map(document.getElementById("map"), {
