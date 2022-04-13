@@ -1,3 +1,5 @@
+var golfCourseContainer = document.querySelector("#golf-course-container")
+
 // Weather
 var zipWeather = document.querySelector("#zipWeather");
 var zipCodeEl = document.querySelector("#zipCode");
@@ -19,6 +21,13 @@ function zipWeatherUpdate(cityName) {
         })
 
     .then(function(data) {
+        console.log(data)
+       var lat = data[0].lat;
+        var lon = data[0].lon;
+        console.log(lat)
+        console.log(lon)
+        initMap(lat, lon)
+
         var cityInfo = data[0];
         var weatherUrl = 'https://api.openweathermap.org/data/2.5/onecall?lat=' +
             cityInfo.lat +
@@ -84,26 +93,14 @@ searchBtn.addEventListener("click", function(event) {
     zipCodeEl.value = '';
 });
 
-// function init() {
-
-//     var saveSearch = JSON.parse(localStorage.getItem("searchZipWeather"));
-
-//     if (saveSearch) {
-//         searchZipWeather = saveSearch;
-//     }
-//     saveHistory();
-// }
-
-// for google nearby search api
-var apiKey = "AIzaSyCpf0JxzmcUOXYeZzlqm-31JxSX2YAOXQY";
-
 var map;
 var service;
 var infowindow;
-var apiKey = "AIzaSyCpf0JxzmcUOXYeZzlqm-31JxSX2YAOXQY";
+var googleMapApiKey = "AIzaSyCpf0JxzmcUOXYeZzlqm-31JxSX2YAOXQY";
 
-function initMap() {
-  var city = new google.maps.LatLng(32.7157, -117.1611); // used san diego coordinates right now
+function initMap(lat, lon) {
+
+  var city = new google.maps.LatLng(lat, lon); 
 
   infowindow = new google.maps.InfoWindow();
   map = new google.maps.Map(document.getElementById("map"), {
@@ -123,6 +120,8 @@ function initMap() {
   service = new google.maps.places.PlacesService(map);
   service.nearbySearch(request, (results, status) => {
     if (status === google.maps.places.PlacesServiceStatus.OK && results) {
+
+        golfCourseContainer.innerHTML = "";
       for (let i = 0; i < results.length; i++) {
         console.log(results[i]);
        
@@ -132,15 +131,20 @@ function initMap() {
         var courseRating = "rating: " + results[i].rating + " stars";
 
         var courseDiv = document.createElement('div')
+        var saveBtn = document.createElement('button');
+        saveBtn.textContent = "save course";
+        courseDiv.append(saveBtn)
+        saveBtn.setAttribute("class", "save-button")
         courseDiv.append(courseName + " " + courseAddress + " " + courseRating)
         courseDiv.style.padding = "10px"
-        document.body.append(courseDiv)
+        golfCourseContainer.append(courseDiv)
       }
-
+      
       map.setCenter(results[0].geometry.location);
    
     }
   });
+}
 
 
 
