@@ -1,4 +1,3 @@
-// Weather
 var zipWeather = document.querySelector("#zipWeather");
 var zipCodeEl = document.querySelector("#zipCode");
 var searchBtn = document.querySelector("#searchBtn");
@@ -26,11 +25,9 @@ function zipWeatherUpdate(cityName) {
         })
 
     .then(function(data) {
-        console.log(data)
-       var lat = data[0].lat;
+        var lat = data[0].lat;
         var lon = data[0].lon;
-        console.log(lat)
-        console.log(lon)
+       
         initMap(lat, lon)
 
         var cityInfo = data[0];
@@ -93,7 +90,7 @@ golfCourseContainer.addEventListener('click', function(event){
         console.log(chosenCourse);
         savedCoursesArray.push(chosenCourse);
         localStorage.setItem("saved courses", JSON.stringify(savedCoursesArray));
-        // updates list with the new saved course
+     
         displaySavedCourses()
     }
 })
@@ -138,19 +135,15 @@ function initMap(lat, lon) {
    service = new google.maps.places.PlacesService(map);
   service.nearbySearch(request, (results, status) => {
     if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-        // clear current results from page
+      
         golfCourseContainer.innerHTML = "";
 
       for (let i = 0; i < results.length; i++) {
-       
-        // testing DOM manipulations
-        
+                   
         var courseName = results[i].name;
         var courseAddress = results[i].vicinity;
         var courseRating = "Rating: " + results[i].rating + " Stars";
 
-        
-        // var courseInfo = document.createElement('div')
         var courseDiv = document.createElement('div')
         var courseInfo = document.createElement('p');
         var saveBtn = document.createElement('button');
@@ -162,26 +155,14 @@ function initMap(lat, lon) {
         courseDiv.style.padding = "10px"
         golfCourseContainer.append(courseDiv)
 
-        // calling the saveThisCourse function written below, passing it the saveBtn as the event target
+        
       }
-    //   map.setCenter(results[0].geometry.location);
+    
     }
     
   });
 }
 
-/// Code below persists courses in local storage when its save button is clicked
-//--must call function inside for loop above passing in the saveBtn as a parameter
-// make a function that takes in parameters of a button and parent element
-// add click event listener to the button which will make the text content of its parent be pushed to an array and then saved in local storage
-
-
-
-
-
-// below: DISPLAY SAVED COURSES FUNCTION
-/// code to append items in local storage to the correct container in the DOM on page load
-// need to add in a div to html with a ul to store saved courses as list items, use same ids referenced by query selector below
 var savedCoursesContaner = document.querySelector("#saved-courses-container");
 var savedCoursesList = document.querySelector("#saved-courses-list");
 function displaySavedCourses(){
@@ -192,7 +173,7 @@ function displaySavedCourses(){
         savedCoursesList.append(savedCourse);
     }
 }
-// // so that the saved courses show up on page load
+
 displaySavedCourses();
 
 
