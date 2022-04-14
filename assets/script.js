@@ -130,14 +130,19 @@ function initMap(lat, lon) {
         var courseAddress = results[i].vicinity;
         var courseRating = "rating: " + results[i].rating + " stars";
 
-        var courseDiv = document.createElement('div')
+      var courseDiv = document.createElement('div')
+        var courseInfo = document.createElement('p');
         var saveBtn = document.createElement('button');
         saveBtn.textContent = "save course";
-        courseDiv.append(saveBtn)
         saveBtn.setAttribute("class", "save-button")
-        courseDiv.append(courseName + " " + courseAddress + " " + courseRating)
+        courseInfo.append(courseName + ", " + courseAddress + " | " + courseRating)
+        courseDiv.append(courseInfo);
+        courseDiv.append(saveBtn)
         courseDiv.style.padding = "10px"
         golfCourseContainer.append(courseDiv)
+
+
+        saveThisCourse(saveBtn);
       }
       
       map.setCenter(results[0].geometry.location);
@@ -145,6 +150,24 @@ function initMap(lat, lon) {
     }
   });
 }
+
+var savedCoursesArray = [];
+
+storedCourses = JSON.parse(localStorage.getItem("saved courses"));
+if (storedCourses){
+    savedCoursesArray = storedCourses;
+};
+
+function saveThisCourse(button){
+    button.addEventListener('click', function(){
+        var chosenCourse = button.parentElement.children[0].textContent;
+        console.log(chosenCourse);
+        savedCoursesArray.push(chosenCourse);
+        localStorage.setItem("saved courses", JSON.stringify(savedCoursesArray));
+        // updates list with the new saved course
+        displaySavedCourses()
+    });
+};
 
 
 
