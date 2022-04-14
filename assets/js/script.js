@@ -1,9 +1,14 @@
-var golfCourseContainer = document.querySelector("#golf-course-container")
-
 // Weather
 var zipWeather = document.querySelector("#zipWeather");
 var zipCodeEl = document.querySelector("#zipCode");
 var searchBtn = document.querySelector("#searchBtn");
+
+var golfCourseContainer = document.querySelector("#golf-course-container")
+
+var savedCoursesArray = JSON.parse(localStorage.getItem("saved courses"));
+if (!savedCoursesArray){
+    savedCoursesArray = [];
+};
 
 var searchZipWeather = [];
 var apiKey = "b1a68922cfde0b1d07bee887e415302e";
@@ -80,6 +85,19 @@ function zipWeatherUpdate(cityName) {
     });
 }
 
+golfCourseContainer.addEventListener('click', function(event){
+    var chosenCourse;
+    var button = event.target;
+    if (button.matches('.save-button')){
+        chosenCourse = button.parentElement.children[0].textContent;
+        console.log(chosenCourse);
+        savedCoursesArray.push(chosenCourse);
+        localStorage.setItem("saved courses", JSON.stringify(savedCoursesArray));
+        // updates list with the new saved course
+        displaySavedCourses()
+    }
+})
+
 searchBtn.addEventListener("click", function(event) {
     event.preventDefault();
 
@@ -110,7 +128,7 @@ function initMap(lat, lon) {
 
   var request = {
     query: "golf course",
-    radius: 5000,
+    radius: 2500,
     fields: ["name", "geometry", "photo"],
     location: city,
     key: "AIzaSyCpf0JxzmcUOXYeZzlqm-31JxSX2YAOXQY",
@@ -145,8 +163,6 @@ function initMap(lat, lon) {
         golfCourseContainer.append(courseDiv)
 
         // calling the saveThisCourse function written below, passing it the saveBtn as the event target
-        saveThisCourse(saveBtn);
-
       }
     //   map.setCenter(results[0].geometry.location);
     }
@@ -159,23 +175,9 @@ function initMap(lat, lon) {
 // make a function that takes in parameters of a button and parent element
 // add click event listener to the button which will make the text content of its parent be pushed to an array and then saved in local storage
 
-var savedCoursesArray = [];
 
-storedCourses = JSON.parse(localStorage.getItem("saved courses"));
-if (storedCourses){
-    savedCoursesArray = storedCourses;
-};
 
-function saveThisCourse(button){
-    button.addEventListener('click', function(){
-        var chosenCourse = button.parentElement.children[0].textContent;
-        console.log(chosenCourse);
-        savedCoursesArray.push(chosenCourse);
-        localStorage.setItem("saved courses", JSON.stringify(savedCoursesArray));
-        // updates list with the new saved course
-        displaySavedCourses()
-    });
-};
+
 
 // below: DISPLAY SAVED COURSES FUNCTION
 /// code to append items in local storage to the correct container in the DOM on page load
@@ -184,15 +186,13 @@ var savedCoursesContaner = document.querySelector("#saved-courses-container");
 var savedCoursesList = document.querySelector("#saved-courses-list");
 function displaySavedCourses(){
     savedCoursesList.innerHTML = "";
-    for (var i = 0; i < storedCourses.length; i++){
+    for (var i = 0; i < savedCoursesArray.length; i++){
         var savedCourse = document.createElement('li');
-        savedCourse.textContent = storedCourses[i];
-        var removeBtn = document.createElement('button');
-        removeBtn.textContent = "remove";
-        savedCourse.append(removeBtn);
+        savedCourse.textContent = savedCoursesArray[i];
         savedCoursesList.append(savedCourse);
     }
 }
 // // so that the saved courses show up on page load
 displaySavedCourses();
+
 
