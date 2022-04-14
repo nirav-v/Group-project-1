@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  </head>
+  <body>
+    <div id="zipWeather"></div>
+    <input type="text" placeholder="Enter a city" id="zipCode" />
+    <button id="searchBtn">Search</button>
+    <div id="saveHistory"></div>
+    <script src=" https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <div id="map"></div>
+    <div id="golf-course-container"></div>
+
+    <!-- div for displaying saved courses -->
+    <div id="saved-courses-container">
+      <h3>saved courses</h3>
+      <ul id="saved-courses-list"></ul>
+    </div>
+
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpf0JxzmcUOXYeZzlqm-31JxSX2YAOXQY&callback=initMap&libraries=places&v=weekly"
+      async
+    ></script>
+    <!-- <script src="./assets/script.js"></script>
+    <script src="./assets/script.js"></script> -->
+    <script src="./DisplaySavedCourses.js"></script>
+  </body>
+</html>
