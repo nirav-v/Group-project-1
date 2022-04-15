@@ -3,6 +3,9 @@ var zipWeather = document.querySelector("#zipWeather");
 var zipCodeEl = document.querySelector("#zipCode");
 var searchBtn = document.querySelector("#searchBtn");
 
+var savedCoursesContaner = document.querySelector("#saved-courses-container");
+var savedCoursesList = document.querySelector("#saved-courses-list");
+
 var golfCourseContainer = document.querySelector("#golf-course-container")
 
 var savedCoursesArray = JSON.parse(localStorage.getItem("saved courses"));
@@ -26,11 +29,9 @@ function zipWeatherUpdate(cityName) {
         })
 
     .then(function(data) {
-        console.log(data)
         var lat = data[0].lat;
         var lon = data[0].lon;
-        console.log(lat)
-        console.log(lon)
+
         initMap(lat, lon)
 
         var cityInfo = data[0];
@@ -163,10 +164,6 @@ function initMap(lat, lon) {
 
     });
 }
-
-
-var savedCoursesContaner = document.querySelector("#saved-courses-container");
-var savedCoursesList = document.querySelector("#saved-courses-list");
 
 function displaySavedCourses() {
     savedCoursesList.innerHTML = "";
