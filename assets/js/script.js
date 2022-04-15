@@ -1,11 +1,15 @@
+// Weather
 var zipWeather = document.querySelector("#zipWeather");
 var zipCodeEl = document.querySelector("#zipCode");
 var searchBtn = document.querySelector("#searchBtn");
 
+var savedCoursesContaner = document.querySelector("#saved-courses-container");
+var savedCoursesList = document.querySelector("#saved-courses-list");
+
 var golfCourseContainer = document.querySelector("#golf-course-container")
 
 var savedCoursesArray = JSON.parse(localStorage.getItem("saved courses"));
-if (!savedCoursesArray){
+if (!savedCoursesArray) {
     savedCoursesArray = [];
 };
 
@@ -27,7 +31,7 @@ function zipWeatherUpdate(cityName) {
     .then(function(data) {
         var lat = data[0].lat;
         var lon = data[0].lon;
-       
+
         initMap(lat, lon)
 
         var cityInfo = data[0];
@@ -82,15 +86,14 @@ function zipWeatherUpdate(cityName) {
     });
 }
 
-golfCourseContainer.addEventListener('click', function(event){
+golfCourseContainer.addEventListener('click', function(event) {
     var chosenCourse;
     var button = event.target;
-    if (button.matches('.save-button')){
+    if (button.matches('.save-button')) {
         chosenCourse = button.parentElement.children[0].textContent;
         console.log(chosenCourse);
         savedCoursesArray.push(chosenCourse);
         localStorage.setItem("saved courses", JSON.stringify(savedCoursesArray));
-     
         displaySavedCourses()
     }
 })
@@ -115,59 +118,56 @@ var googleMapApiKey = "AIzaSyCpf0JxzmcUOXYeZzlqm-31JxSX2YAOXQY";
 
 function initMap(lat, lon) {
 
-  var city = new google.maps.LatLng(lat, lon); 
+    var city = new google.maps.LatLng(lat, lon);
 
-  infowindow = new google.maps.InfoWindow();
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: city,
-    zoom: 15,
-  });
+    infowindow = new google.maps.InfoWindow();
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: city,
+        zoom: 15,
+    });
 
-  var request = {
-    query: "golf course",
-    radius: 2500,
-    fields: ["name", "geometry", "photo"],
-    location: city,
-    key: "AIzaSyCpf0JxzmcUOXYeZzlqm-31JxSX2YAOXQY",
-    keyword: "golf",
-  };
+    var request = {
+        query: "golf course",
+        radius: 2500,
+        fields: ["name", "geometry", "photo"],
+        location: city,
+        key: "AIzaSyCpf0JxzmcUOXYeZzlqm-31JxSX2YAOXQY",
+        keyword: "golf",
+    };
 
-   service = new google.maps.places.PlacesService(map);
-  service.nearbySearch(request, (results, status) => {
-    if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-      
-        golfCourseContainer.innerHTML = "";
+    service = new google.maps.places.PlacesService(map);
+    service.nearbySearch(request, (results, status) => {
+        if (status === google.maps.places.PlacesServiceStatus.OK && results) {
 
-      for (let i = 0; i < results.length; i++) {
-                   
-        var courseName = results[i].name;
-        var courseAddress = results[i].vicinity;
-        var courseRating = "Rating: " + results[i].rating + " Stars";
+            golfCourseContainer.innerHTML = "";
 
-        var courseDiv = document.createElement('div')
-        var courseInfo = document.createElement('p');
-        var saveBtn = document.createElement('button');
-        saveBtn.textContent = "save course";
-        saveBtn.setAttribute("class", "save-button")
-        courseInfo.append(courseName + ", " + courseAddress + " | " + courseRating)
-        courseDiv.append(courseInfo);
-        courseDiv.append(saveBtn)
-        courseDiv.style.padding = "10px"
-        golfCourseContainer.append(courseDiv)
+            for (let i = 0; i < results.length; i++) {
 
-        
-      }
-    
-    }
-    
-  });
+                var courseName = results[i].name;
+                var courseAddress = results[i].vicinity;
+                var courseRating = "Rating: " + results[i].rating + " Stars";
+
+
+                var courseDiv = document.createElement('div')
+                var courseInfo = document.createElement('p');
+                var saveBtn = document.createElement('button');
+                saveBtn.textContent = "save course";
+                saveBtn.setAttribute("class", "save-button")
+                courseInfo.append(courseName + ", " + courseAddress + " | " + courseRating)
+                courseDiv.append(courseInfo);
+                courseDiv.append(saveBtn);
+                golfCourseContainer.append(courseDiv)
+
+            }
+
+        }
+
+    });
 }
 
-var savedCoursesContaner = document.querySelector("#saved-courses-container");
-var savedCoursesList = document.querySelector("#saved-courses-list");
-function displaySavedCourses(){
+function displaySavedCourses() {
     savedCoursesList.innerHTML = "";
-    for (var i = 0; i < savedCoursesArray.length; i++){
+    for (var i = 0; i < savedCoursesArray.length; i++) {
         var savedCourse = document.createElement('li');
         savedCourse.textContent = savedCoursesArray[i];
         savedCoursesList.append(savedCourse);
@@ -175,5 +175,3 @@ function displaySavedCourses(){
 }
 
 displaySavedCourses();
-
-
