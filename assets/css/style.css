@@ -1,0 +1,86 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    position: relative;
+    background-image: url("../img/cover-img.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+header {
+    width: 100%;
+    padding-top: 25px;
+    text-align: center;
+    color: white;
+}
+
+#zipWeather h3 {
+    font-size: 20px;
+    background-color: green;
+    opacity: 0.6;
+    color: white;
+}
+
+#searchBox {
+    width: fit-content;
+    float: right;
+    padding-right: 20px;
+}
+
+#searchBtn {
+    height: 38px;
+}
+
+#zipCode {
+    height: 38px;
+    border-radius: 5px;
+    color: white;
+}
+
+.weather-courses {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+}
+
+.containerBody {
+    display: flex;
+    align-content: space-between;
+    color: white;
+}
+
+.weather-courses {
+    text-align: center;
+    padding-left: 25px;
+}
+
+.courses {
+    text-align: center;
+    width: -moz-fit-content;
+    width: fit-content;
+    background-color: rgb(16, 90, 16);
+    border-radius: 25px;
+    opacity: 0.6;
+}
+
+.weather {
+    background-color: rgb(16, 90, 16);
+    border-radius: 15px;
+    opacity: 0.6;
+    height: fit-content;
+}
+
+#saved-courses-container {
+    background-color: rgb(16, 90, 16);
+    border-radius: 15px;
+    opacity: 0.6;
+}

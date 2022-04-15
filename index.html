@@ -1,25 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <link rel="stylesheet " href="./assets/css/style.css">
+
     <title>Golfapedia</title>
-  </head>
-  <body>
-    <div id="zipWeather"></div>
-    <input type="text" placeholder="Enter a city" id="zipCode" />
-    <button id="searchBtn">Search</button>
+</head>
+
+
+<body>
+
+    <header>
+        <div class="row">
+            <div class="column container">
+                <h1>GOLFOPEDIA</h1>
+            </div>
+        </div>
+
+        <div class="colum search-box" id="searchBox">
+            <form>
+                <input type="text" placeholder="Enter a city" id="zipCode">
+                <button class="button button-outline" id="searchBtn">Search</button>
+            </form>
+        </div>
+    </header>
+    <div class="row containerBody">
+
+        <div class="row weather-courses">
+            <div class="column column-50 weather">
+                <h3>Weather</h3>
+                <div id="zipWeather"></div>
+            </div>
+            <div class="row">
+                <div class="column column-50">
+                    <div id="saved-courses-container">
+                        <h3>saved courses</h3>
+                        <p>nearby courses will display here</p>
+                        <ul id="saved-courses-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row column column-50 courses">
+            <h3>Courses</h3>
+            <div id="golf-course-container"></div>
+        </div>
+
+    </div>
     <div id="saveHistory"></div>
-    <script src=" https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <div id="map"></div>
-    <div id="golf-course-container"></div>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpf0JxzmcUOXYeZzlqm-31JxSX2YAOXQY&callback=initMap&libraries=places&v=weekly"
-      async
-    ></script>
-    <script src="./assets/script.js"></script>
-    <script src="./assets/script.js"></script>
-  </body>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpf0JxzmcUOXYeZzlqm-31JxSX2YAOXQY&callback=initMap&libraries=places&v=weekly" async></script>
+    <script src="./assets/js/script.js"></script>
+
+</body>
+
 </html>
