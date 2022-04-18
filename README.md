@@ -1,6 +1,6 @@
-# Group-project-1
+# Golfapedia
 
-Golfapedia is an application that renders local golf courses and weather for a city of the user's choice, while allowing them to create a customized list of saved courses that persists in local storage.
+Golfapedia is an application that renders local golf courses and weather for a city of the user's choice, while allowing them to create a customized list of saved courses that persists in local storage. It was built using HTML, CSS (with Miligram Framework), and Javascript. Data was used from the Open Weather API and Google Maps Javascript API.  
 The user simply types a valid city name into the search input, submits the request, and the page will render the current weather in that city and a list of nearby courses, including their address and rating. Each course listing also features a save button which the user can click to add it to their saved courses list that will still display when the page is refreshed. 
 
 link to deployed application:
